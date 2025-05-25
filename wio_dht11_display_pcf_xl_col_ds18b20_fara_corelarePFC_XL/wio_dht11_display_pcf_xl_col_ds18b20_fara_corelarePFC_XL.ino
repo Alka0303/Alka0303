@@ -117,8 +117,8 @@ void drawLabels() {
   tft.setTextColor(TFT_WHITE, TFT_BLACK);
   tft.setCursor(5, 0);      tft.printf("XL");
   tft.setCursor(65, 0);     tft.printf("PCF");
-  tft.setCursor(115, 0);    tft.printf("DHT");
-  tft.setCursor(175, 0);    tft.printf("DS18B20");
+  tft.setCursor(110, 0);    tft.printf("DHT");
+  tft.setCursor(155, 0);    tft.printf("DS18B20");
   for (uint8_t i = 0; i < 16; i++) {
     tft.setCursor(5, 12 + i * 10);
     tft.printf("%02d:", i + 1);
@@ -131,7 +131,7 @@ void drawLabels() {
 void updateDisplay() {
   for (uint8_t i = 0; i < 16; i++) {
     // XL (relee)
-    tft.setCursor(35, 12 + i * 10);
+    tft.setCursor(25, 12 + i * 10);
     tft.setTextColor(stateXL[i] ? TFT_GREEN : TFT_RED, TFT_BLACK);
     tft.printf("%s ", stateXL[i] ? "ON " : "OFF");
 
@@ -141,7 +141,7 @@ void updateDisplay() {
     tft.printf("%d ", statePCF[i] ? 1 : 0);
 
     // DHT: doar pentru primele 2 canale (corelate cu D0, D1)
-    tft.setCursor(115, 12 + i * 10);
+    tft.setCursor(100, 12 + i * 10);
     tft.setTextColor(TFT_WHITE, TFT_BLACK);
     if (i == 0 && dhtResult[0] == 0)
       tft.printf("%2dC/%2d%%", temperature[0], humidity[0]);
@@ -151,7 +151,7 @@ void updateDisplay() {
       tft.printf("     ");
 
     // DS18B20: afișare pe coloana nouă, max 8 senzori (primele 8 linii)
-    tft.setCursor(175, 12 + i * 10);
+    tft.setCursor(155, 12 + i * 10);
     tft.setTextColor(TFT_CYAN, TFT_BLACK);
     if (i < ds18b20_count && i < 8 && ds18b20_temps[i] > -100.0 && ds18b20_temps[i] < 125.0) {
       tft.printf("%5.2fC", ds18b20_temps[i]);
